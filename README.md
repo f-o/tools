@@ -23,6 +23,7 @@ It is meant to be a quick way for me to remember certain commands. I hope you fi
     - [MKV to WAV](#mkv-to-wav)
     - [Export SRT from MKV](#export-srt-from-mkv)
     - [Split video into 15 minute parts](#split-video-into-15-minute-parts)
+    - [Trim video between timestamps](#trim-video-between-timestamps)
 
 ---
 
