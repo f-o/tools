@@ -18,6 +18,7 @@ It is meant to be a quick way for me to remember certain commands. I hope you fi
 - [Linux](#linux)
     - [Folder Disk Usage](#folder-disk-usage)
     - [Get Public IP Address](#get-public-ip-address)
+    - [Upload with Upsies](#upload-with-upsies)
 - [Python](#python)
 - [FFmpeg](#ffmpeg)
     - [MKV to WAV](#mkv-to-wav)
@@ -82,6 +83,25 @@ Sample output:
   "readme": "https://ipinfo.io/missingauth"
 }
 ```
+
+## Upload with Upsies
+
+Base command to upload a folder using [Upsies](https://upsies.readthedocs.io/en/stable/).
+
+```bash
+upsies submit TRACKER PATH
+```
+- `submit`: Generate all required metadata and upload to TRACKER.
+- `TRACKER`: Tracker shortcode (BHD).
+- `PATH`: Path to the folder to upload.
+
+Using debug and ignore cache
+```bash
+upsies --debug debug.log -C submit TRACKER PATH
+```
+- `--debug debug.log`: Enable debug logging to a file.
+- `-C`: Ignore results from previous calls (cache).
+
 
 # FFmpeg
 
