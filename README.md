@@ -178,5 +178,5 @@ This will generate an APNG file, from a screen recording, which can be used in R
 - Run the following command, which utilizes [apngasm](https://apngasm.sourceforge.net/) to generate the APNG file
 
 ```bash
-apngasm output.png filename_*.png
+apngasm64.exe output.png filename_*.png 0 0
 ```
