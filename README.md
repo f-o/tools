@@ -25,6 +25,8 @@ It is meant to be a quick way for me to remember certain commands. I hope you fi
     - [Export SRT from MKV](#export-srt-from-mkv)
     - [Split video into 15 minute parts](#split-video-into-15-minute-parts)
     - [Trim video between timestamps](#trim-video-between-timestamps)
+- [Images](#images)
+    - [Generate APNG for README](#generate-apng-for-readme)
 
 ---
 
@@ -163,3 +165,18 @@ Using duration
 ffmpeg -i input.mp4 -ss 00:00:30 -t 30 -c copy output.mp4
 ```
 - `-t 30`: Sets the duration to 30 seconds, so the output will be from 00:00:30 to 00:01:00.
+
+
+# Images
+
+## Generate APNG for README
+This will generate an APNG file, from a screen recording, which can be used in README.md files.
+
+- Record video using OBS Studio
+- Open video in After Effects, and make neccessary adjustments
+- Export video as a PNG sequence
+- Run the following command, which utilizes [apngasm](https://apngasm.sourceforge.net/) to generate the APNG file
+
+```bash
+apngasm output.png filename_*.png
+```
