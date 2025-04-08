@@ -27,6 +27,7 @@ It is meant to be a quick way for me to remember certain commands. I hope you fi
     - [Trim video between timestamps](#trim-video-between-timestamps)
 - [Images](#images)
     - [Generate APNG for README](#generate-apng-for-readme)
+- [Laravel](#laravel)
 
 ---
 
@@ -179,4 +180,21 @@ This will generate an APNG file, from a screen recording, which can be used in R
 
 ```bash
 apngasm64.exe output.png filename_*.png 0 0
+```
+
+
+# Laravel
+
+## Create new project
+Command to create a new Laravel project.
+
+```bash
+laravel new example-app
+```
+
+## Run Laravel with Composer
+Command to run Laravel in terminal, using Composer.
+
+```bash
+composer run dev
 ```
