@@ -19,6 +19,7 @@ It is meant to be a quick way for me to remember certain commands. I hope you fi
     - [Folder Disk Usage](#folder-disk-usage)
     - [Get Public IP Address](#get-public-ip-address)
     - [Upload with Upsies](#upload-with-upsies)
+    - [Screen sessions](#screen-sessions)
 - [Python](#python)
 - [FFmpeg](#ffmpeg)
     - [MKV to WAV](#mkv-to-wav)
@@ -105,6 +106,54 @@ upsies --debug debug.log -C submit TRACKER PATH
 - `--debug debug.log`: Enable debug logging to a file.
 - `-C`: Ignore results from previous calls (cache).
 
+
+## Screen sessions
+
+Screen allows multiple interactive windows to be open at the same time. These will not terminate when SSH connection ends.
+
+### 1. Start a new Screen session
+
+```bash
+screen -S name_of_session <command-to-run>
+```
+
+### 2. List active screen sessions
+
+```bash
+screen -ls
+```
+
+### 3. Reconnect to a specific session
+
+```bash
+screen -r name_of_session
+```
+
+### 4. Close the current running screen
+
+From inside the screen session, simply:
+```bash
+exit
+```
+or press:
+```
+Ctrl + D
+```
+If it’s the last window in that session, the session will terminate.
+
+You can also kill the current window with:
+```
+Ctrl + A then K
+```
+(confirm with `y`)
+
+**Bonus: Detach without closing**
+
+To leave a session running:
+```
+Ctrl + A then D
+```
+This detaches the session while keeping it alive.
 
 # FFmpeg
 
@@ -197,4 +246,5 @@ Command to run Laravel in terminal, using Composer.
 
 ```bash
 composer run dev
+
 ```
