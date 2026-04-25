@@ -20,7 +20,7 @@ It is meant to be a quick way for me to remember certain commands. I hope you fi
     - [Get Public IP Address](#get-public-ip-address)
     - [Upload with Upsies](#upload-with-upsies)
     - [Screen sessions](#screen-sessions)
-- [Python](#python)
+    - [Update Docker images](#update-docker-images)
 - [FFmpeg](#ffmpeg)
     - [MKV to WAV](#mkv-to-wav)
     - [Export SRT from MKV](#export-srt-from-mkv)
@@ -29,6 +29,10 @@ It is meant to be a quick way for me to remember certain commands. I hope you fi
 - [Images](#images)
     - [Generate APNG for README](#generate-apng-for-readme)
 - [Laravel](#laravel)
+- [NGINX](#nginx)
+    - [Add new site](#add-new-site)
+        - [HTML based source](#html-based-source)
+        - [Proxy to Docker container](#proxy-to-docker-container)
 
 ---
 
@@ -87,6 +91,7 @@ Sample output:
   "readme": "https://ipinfo.io/missingauth"
 }
 ```
+
 
 ## Upload with Upsies
 
@@ -154,6 +159,16 @@ To leave a session running:
 Ctrl + A then D
 ```
 This detaches the session while keeping it alive.
+
+## Update Docker images
+If a new update is available for a Docker image, and the container has been installed with docker-compose, you can update with the following command.
+
+First CD into the folder where the `docker-compose.yml` file is located, then run:
+
+```bash
+docker compose pull && docker compose up -d
+```
+
 
 # FFmpeg
 
@@ -247,4 +262,70 @@ Command to run Laravel in terminal, using Composer.
 ```bash
 composer run dev
 
+```
+
+
+# NGINX
+
+## Add new site
+To add a new site to NGINX, running alongside of Swizzin, you need to determine if it will be a HTML based source, or a proxy to a Docker container.
+
+### HTML based source
+1. Create a new folder for the site in `/var/www/`
+2. Create a new NGINX configuration file in `/etc/nginx/sites-available/` with the following content:
+
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+    root /var/www/example.com;
+    index index.html;
+}
+```
+3. Enable the site by creating a symbolic link to the configuration file in `/etc/nginx/sites-enabled/`:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+```
+
+### Proxy to Docker container
+1. Create a new NGINX configuration file in `/etc/nginx/sites-available/` with the following content:
+
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;  # Replace with the actual port of your Docker container
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+}
+```
+OBS: You can enable basic HTTP authentication for the site by adding the following lines after the server name:
+
+```nginx
+        auth_basic "What's the password?";
+        auth_basic_user_file /etc/htpasswd.d/htpasswd.fox;
+```
+
+2. Enable the site by creating a symbolic link to the configuration file in `/etc/nginx/sites-enabled/`:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+```
+3. Check the NGINX configuration for syntax errors:
+
+```bash
+sudo nginx -t
+```
+4. Reload NGINX to apply the changes:
+
+```bash
+sudo systemctl reload nginx
 ```
